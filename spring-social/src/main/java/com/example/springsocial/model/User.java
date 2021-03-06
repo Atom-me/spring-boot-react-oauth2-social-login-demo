@@ -1,4 +1,5 @@
 package com.example.springsocial.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class User {
     @JsonIgnore
     private String password;
 
+    /**
+     * The User class contains information about the authentication provider.
+     */
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
