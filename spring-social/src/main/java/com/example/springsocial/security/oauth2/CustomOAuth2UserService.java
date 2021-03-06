@@ -45,6 +45,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
+        //todo 查询三方账号与用户绑定关系表
+        // 如果不存在绑定关系，则禁止登录，应先使用账号密码登录，之后进行绑定
         Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
         User user;
         if (userOptional.isPresent()) {
@@ -59,6 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
+        // todo 这里处理权限信息
         return UserPrincipal.create(user, oAuth2User.getAttributes());
     }
 
